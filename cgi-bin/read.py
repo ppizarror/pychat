@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Read messages from the server.
+This file is intended to be requested by AJAX.
 """
 
 import cgitb
@@ -12,15 +13,12 @@ import json
 import cgi
 import html
 import hashlib
+import emoji
+from db import PyChatDb
 
-# Da
-conn = pymysql.connect(
-    db='test',
-    user='root',
-    passwd='',
-    host='localhost',
-    charset='utf8')
-c = conn.cursor()
+# Creates a connection
+db = PyChatDb()
+conn, cur = db.get_conn(), db.get_cursor()
 
 # noinspection PyUnresolvedReferences
 sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
@@ -29,26 +27,33 @@ cgitb.enable()
 print('Content-type: text/html; charset=UTF-8')
 print('')
 
-# Obtiene el password
-datos = cgi.FieldStorage()
-if 'password' in datos:
-    pwd = html.escape(datos.getvalue('password'))
-    hash_object = hashlib.sha256(pwd.encode('utf-8'))
+# Get the password
+data = cgi.FieldStorage()
+
+# Check if password is defined
+if 'password' in data:
+    # Encodes the password
+    password = html.escape(data.getvalue('password'))
+    hash_object = hashlib.sha256(password.encode('utf-8'))
     hex_dig = str(hash_object.hexdigest())
-    sql = "SELECT `username`,`message`,`date`,`id` from aux8pass WHERE `password`=%s ORDER BY `id` DESC LIMIT 15"
+
+    # noinspection SqlDialectInspection, SqlNoDataSourceInspection
+    sql = "SELECT `username`,`message`,`date`,`id` from chats WHERE `password`=%s ORDER BY `id` DESC LIMIT 15"
     try:
-        resultado = c.execute(sql, hex_dig)
+        resultado = cur.execute(sql, hex_dig)
         conn.commit()
-        messages = c.fetchall()
+        messages = cur.fetchall()
         msg = {}
         k = 0
         for i in messages:
             msg[k] = list(i)
-            msg[k][2] = msg[k][2].strftime('%d/%m/%Y %H:%M:%S')
+            msg[k][1] = emoji.emojize(msg[k][1])  # message
+            msg[k][2] = msg[k][2].strftime('%d/%m/%Y %H:%M:%S')  # date
             k += 1
         print(json.dumps(msg))
     except pymysql.Error as e:
-        mensaje = 'Error con base de datos: {0} {1} '.format(e.args[0], e.args[1])
-    c.close()
+        print('Error while processing the database query')
+    cur.close()
+
 else:
-    print('ERROR, Contraseña no proporcionada')
+    print('Error, password not defined')
