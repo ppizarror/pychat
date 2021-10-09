@@ -4,6 +4,8 @@
 Connects to the server.
 """
 
+__all__ = ['PyChatDb']
+
 import pymysql
 
 
@@ -25,6 +27,14 @@ class PyChatDb(object):
             host='localhost',
             charset='utf8'
         )
+
+    def get_conn(self) -> 'pymysql.Connection':
+        """
+        Returns the connection.
+
+        :return: Connection
+        """
+        return self._conn
 
     def get_cursor(self) -> 'pymysql.cursors.Cursor':
         """
