@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Epic Chat</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/javascript" src="scripts.js"></script>
+</head>
+<body onload="initApp();">
+<div class="title">Epic Chat</div>
+<div id="chatcontainer">
+</div>
+<div class="form">
+    <form action="" onsubmit="return submitMessage();">
+        <div class="input">
+            <span>Password</span>
+            <input type="password" name="password" id="password" placeholder="Contraseña del chat" minlength="4"
+                   maxlength="32">
+        </div>
+        <div class="input">
+            <span>Username:</span>
+            <input type="text" name="username" id="uname" placeholder="Escribe tu nombre aqui" minlength="4"
+                   maxlength="10">
+        </div>
+        <div class="input">
+            <span>Mensaje:</span>
+            <input type="text" name="message" id="message" maxlength="256" minlength="1" placeholder="Tu mensaje">
+        </div>
+        <div class="input">
+            <button id="sendmessage" type="submit">Enviar mensaje</button>
+        </div>
+    </form>
+</div>
+<div id="error"></div>
+</body>
+</html>

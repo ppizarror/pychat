@@ -1,0 +1,96 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-size: 20px;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+#chatcontainer {
+    width: 70%;
+    background-color: #e2e2e2;
+    margin-left: 15%;
+    margin-bottom: 5%;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    cursor: default;
+    border-radius: 10px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+    margin: 25px;
+}
+
+.form {
+    padding-left: 5%;
+    padding-top: 1%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #adadad;
+}
+
+.input {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.input input, textarea {
+    font-size: 15px;
+    padding: 10px;
+    width: 250px;
+}
+
+.input span {
+    width: 150px;
+    font-weight: 600;
+}
+
+#sendmessage {
+    background-color: #2794f5;
+    padding: 15px;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+}
+
+#sendmessage:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.message {
+    margin-bottom: 5px;
+    background-color: #d0d0d0;
+    padding: 1px 5px;
+}
+
+.header {
+    display: inline-flex;
+}
+
+.username {
+    font-weight: 600;
+}
+
+.date {
+    color: aliceblue;
+    padding-left: 15px;
+}
+
+#error {
+    background-color: #f38d8d;
+    display: none;
+    font-size: 20px;
+    left: 0;
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
